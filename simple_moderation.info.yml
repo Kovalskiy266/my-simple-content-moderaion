@@ -1,0 +1,7 @@
+name: Simple Content Moderation
+type: module
+description: 'Simple module for a small workflow of content'
+package: Custom
+core_version_requirement: ^9.2 || ^10
+
+configure: simple_moderation.settings

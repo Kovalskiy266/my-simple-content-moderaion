@@ -1,0 +1,6 @@
+simple_moderation:
+  css:
+    theme:
+      css/simple_moderation.css: {}
+  dependencies:
+    - core/drupal

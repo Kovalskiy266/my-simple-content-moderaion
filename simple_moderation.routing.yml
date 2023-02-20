@@ -1,0 +1,8 @@
+simple_moderation.new_moderation_content:
+  path: '/admin/config/simple-moderation/assignment-form'
+  defaults:
+    _controller: '\Drupal\simple_moderation\Controller\SimpleModerationController::build'
+    _title: 'Assignment states for roles'
+  requirements:
+    _permission: 'administer site configuration'
+

@@ -1,0 +1,4 @@
+services:
+  simple_moderation.assignment_system:
+    class: Drupal\simple_moderation\AssignmentSystem
+    arguments: ['@config.factory', '@entity_type.manager']

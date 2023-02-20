@@ -1,0 +1,58 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ *
+ * Twig template for render notification content.
+ */
+function simple_moderation_theme($existing, $type, $theme, $path) {
+  return [
+    'assignment-information-page' => [
+      'variables' => [
+        'form' => NULL,
+        'assignment_info' => NULL,
+      ]
+    ],
+    'assignment-information-table' => [
+      'variables' => [
+        'state' => NULL,
+        'role' => NULL,
+      ]
+    ]
+  ];
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function simple_moderation_form_node_form_alter(&$form, FormStateInterface $form_state)  {
+  if (isset($form['moderation_state'])) {
+    $form['field_assigne']['#prefix'] = '<div id="replace_assigne_users">';
+    $form['field_assigne']['#suffix'] = '</div>';
+
+    $form['moderation_state']['widget'][0]['state']['#ajax'] = [
+      'callback' => 'changeListAvailableUsers',
+      'wrapper' => 'replace_assigne_users',
+      'event' => 'change',
+    ];
+    $form['moderation_state']['widget'][0]['state']['#empty_value'] = '';
+    $form['moderation_state']['widget'][0]['state']['#empty_option'] = t('Choose state');
+
+    if ($form_state->getValue('moderation_state') === NULL) {
+      $state = $form['moderation_state']['widget'][0]['state']['#default_value'];
+      $assignment_system = \Drupal::service('simple_moderation.assignment_system');
+      $form['field_assigne']['widget']['#options'] = $assignment_system->getNewListUsers($state);
+    }
+
+  }
+}
+
+function changeListAvailableUsers(&$form, FormStateInterface $form_state) {
+  $assignment_system = \Drupal::service('simple_moderation.assignment_system');
+  $next_state = $form_state->getValue('moderation_state')[0]['value'];
+  $form['field_assigne']['widget']['#options'] = $assignment_system->getNewListUsers($next_state);
+  return $form['field_assigne'];
+}

@@ -1,0 +1,32 @@
+.assignment-information-wrapper {
+  max-width: 1400px;
+  width: 100%;
+  margin: 40px auto;
+}
+
+.assignment-information-container,
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.assignment-information-container div,
+.heading-container div {
+  width: 50%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.assignment-information-container div {
+  padding: 15px;
+  border: 1px solid grey;
+}
+
+.heading-container div {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 15px;
+  justify-content: center;
+}
