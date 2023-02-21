@@ -79,8 +79,10 @@ class SimpleModerationForm extends ConfigFormBase {
     $states = $my_moderation->get('type_settings')['states'];
 
     // Create lists.
-    foreach ($states as $key_state => $state) {
-      $options_states[$key_state] = $state['label'];
+    if (!empty($states)) {
+      foreach ($states as $key_state => $state) {
+        $options_states[$key_state] = $state['label'];
+      }
     }
 
     foreach ($all_roles as $role) {
@@ -143,7 +145,7 @@ class SimpleModerationForm extends ConfigFormBase {
    * @return string[]
    *   A dynamic markup that gives a hint for the user what he has chosen.
    */
-  public function chooseRole(array &$form, FormStateInterface $form_state) {
+  public function resultChosen(array &$form, FormStateInterface $form_state) {
     $output = "<div id='result-container'>{$this->t('You have chosen <span>@role</span> role for <span>@state state</span>',
       ['@role' => $form_state->getValue('roles'), '@state' => $form_state->getValue('states')])}</div>";
     return ['#markup' => $output];

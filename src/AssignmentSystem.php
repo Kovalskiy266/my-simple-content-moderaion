@@ -98,11 +98,11 @@ class AssignmentSystem {
     $users = $this->entityTypeManager
       ->getStorage('user')
       ->loadByProperties(
-              [
-                'status' => 1,
-                'roles' => $role,
-              ]
-          );
+        [
+          'status' => 1,
+          'roles' => $role,
+        ]
+      );
     $all_users = [];
     foreach ($users as $user) {
       $all_users[$user->id()] = $user->getDisplayName();
