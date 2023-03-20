@@ -78,6 +78,7 @@ class SimpleModerationForm extends ConfigFormBase {
     // Get all states from our moderation.
     $states = $my_moderation->get('type_settings')['states'];
 
+    $options_states = [];
     // Create lists.
     if (!empty($states)) {
       foreach ($states as $key_state => $state) {
@@ -85,10 +86,10 @@ class SimpleModerationForm extends ConfigFormBase {
       }
     }
 
+    $options_roles = [];
     foreach ($all_roles as $role) {
       $options_roles[$role->id()] = $role->label();
     }
-
     $config = $this->config('simple_moderation.settings');
 
     // Create fields.
@@ -96,7 +97,8 @@ class SimpleModerationForm extends ConfigFormBase {
       '#type' => 'select',
       '#title' => $this->t('Choose state'),
       '#options' => $options_states,
-      '#default_value' => $config->get('states'),
+      '#default_value' => '',
+      '#required' => TRUE,
       '#ajax' => [
         'callback' => '::resultChosen',
         'event' => 'change',
@@ -108,7 +110,8 @@ class SimpleModerationForm extends ConfigFormBase {
       '#type' => 'select',
       '#title' => $this->t('Choose role'),
       '#options' => $options_roles,
-      '#default_value' => $config->get('roles'),
+      '#default_value' => '',
+      '#required' => TRUE,
       '#ajax' => [
         'callback' => '::resultChosen',
         'event' => 'change',
